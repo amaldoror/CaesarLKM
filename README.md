@@ -30,8 +30,8 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
 
 1. **Clone the repository:**
    ```bash
-   git clone <URL-of-the-repository>
-   cd caesar_cipher_driver
+   git clone https://github.com/amaldoror/CaesarLKM
+   cd CaesarLKM
    
 2. **Compile the kernel module:**
    ```bash
