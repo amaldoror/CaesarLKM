@@ -33,11 +33,17 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
    git clone https://github.com/amaldoror/CaesarLKM
    cd CaesarLKM
    
-2. **Compile the kernel module:**
+2. **Install libraries:**
+   ```bash
+   sudo apt-get update
+   apt-cache search linux-headers-$(uname -r)
+   sudo apt-get install linux-headers-[VERSION]
+
+3. **Compile the kernel module:**
    ```bash
    make
    
-3. **Load the kernel module:**
+4. **Load the kernel module:**
    ```bash
    make load
    
