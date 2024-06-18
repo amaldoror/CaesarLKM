@@ -7,3 +7,4 @@ To do:
 - Laden des Modules mit anderen translate_shift Parametern (zur Laufzeit)
 
 - README.md file updaten
+- License file ins repo pushen
