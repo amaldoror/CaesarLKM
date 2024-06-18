@@ -88,7 +88,6 @@ The module supports the translate_shift parameter to specify the number of chara
 By default, this is set to 3.
 
 Example of loading the module with a different shift value:
-
     ```bash
     sudo insmod caesar_cipher.ko translate_shift=5
    
