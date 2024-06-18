@@ -36,9 +36,10 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
     cd CaesarLKM
    
 2. **Install libraries:**<br>
-   <code>sudo apt-get update</code>
-   <code>apt-cache search linux-headers-$(uname -r)</code>
-   <code>sudo apt-get install linux-headers-[VERSION]</code>
+    ```bash
+    sudo apt-get update
+    apt-cache search linux-headers-$(uname -r)
+    sudo apt-get install linux-headers-[VERSION]
 
 ## Makefile
 
@@ -66,12 +67,14 @@ To use the module, it has to be compiled and loaded.<br>
 Once the module is loaded, the device files <code>/dev/encrypt</code> and <code>/dev/decrypt</code> are available.
 
 1. **Encryption:**<br>
-   <code>echo "Hello hello!" > /dev/encrypt</code>
-   <code>cat /dev/encrypt  # Outputs "Khoor khoor!"</code>
+    ```bash
+    echo "Hello hello!" > /dev/encrypt
+    cat /dev/encrypt  # Outputs "Khoor khoor!"
     
 2. **Decryption:**<br>
-   <code>    echo "Khoor khoor!" > /dev/decrypt</code>
-   <code>cat /dev/decrypt  # Outputs "Hello hello!"</code>
+    ```bash
+    echo "Khoor khoor!" > /dev/decrypt
+    cat /dev/decrypt  # Outputs "Hello hello!"
     
 ## Module Parameters
 
