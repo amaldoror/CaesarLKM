@@ -30,51 +30,53 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
 
 ## Installation
 
-1. **Clone the repository:**
+1. **Clone the repository:** <br>
    <code>git clone https://github.com/amaldoror/CaesarLKM
    cd CaesarLKM</code>
    
-2. **Install libraries:**
+2. **Install libraries:**<br>
    <code>sudo apt-get update
    apt-cache search linux-headers-$(uname -r)
    sudo apt-get install linux-headers-[VERSION]   </code>
 
 ## Makefile
 
-1. **Compile the Kernel Module:**
+1. **Compile the Kernel Module:**<br>
    <code>make</code>
    
-2. **Clean up:**
+2. **Clean up:**<br>
    <code>make clean</code>
 
-3. **Load the Kernel Module:**
+3. **Load the Kernel Module:**<br>
    <code>make load</code>
    
-4. **Unload the Kernel Module:**
+4. **Unload the Kernel Module:**<br>
    <code>make unload</code>
    
-5. **View Kernel Logs:**
+5. **View Kernel Logs:**<br>
    <code>make log</code>
    
-6. **Help:**
+6. **Help:**<br>
    <code>make help</code>
 
 ## Usage
 
-To use the module, it has to be compiled and loaded.
-Once the module is loaded, the device files <code>/dev/encrypt</code> and <code>/dev/decrypt</code> are available.
+To use the module, it has to be compiled and loaded.<br>
+Once the module is loaded, the device files <br>
+<code>/dev/encrypt</code> and <code>/dev/decrypt</code> are available.
 
-1. **Encryption:**
+1. **Encryption:**<br>
    <code>echo "Hello hello!" > /dev/encrypt
     cat /dev/encrypt  # Outputs "Khoor khoor!"</code>
     
-2. **Decryption:**
+2. **Decryption:**<br>
    <code>    echo "Khoor khoor!" > /dev/decrypt
     cat /dev/decrypt  # Outputs "Hello hello!"</code>
     
 ## Module Parameters
 
-The module supports the translate_shift parameter to specify the number of characters to shift for encryption. By default, this is set to 3.
+The module supports the translate_shift parameter to specify the number of characters to shift for encryption.<br>
+By default, this is set to 3.
 
 Example of loading the module with a different shift value:
 
@@ -91,7 +93,9 @@ The module implements the following file operations for the device files:
 
 ## Security Considerations
 
-The driver uses mutexes to ensure that only one process can access the device files at a time. It's recommended to encrypt only ASCII characters that are part of the defined alphabet (ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz). Non-included characters are passed through unchanged.
+The driver uses mutexes to ensure that only one process can access the device files at a time.<br>
+It's recommended to encrypt only ASCII characters that are part of the defined alphabet (ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz).<br>
+Non-included characters are passed through unchanged.
    
 ## License
 
