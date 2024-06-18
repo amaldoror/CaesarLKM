@@ -31,13 +31,13 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
 ## Installation
 
 1. **Clone the repository:** <br>
-   <code>git clone https://github.com/amaldoror/CaesarLKM
-   cd CaesarLKM</code>
+   <code>git clone https://github.com/amaldoror/CaesarLKM</code>
+   <code>cd CaesarLKM</code>
    
 2. **Install libraries:**<br>
-   <code>sudo apt-get update
-   apt-cache search linux-headers-$(uname -r)
-   sudo apt-get install linux-headers-[VERSION]   </code>
+   <code>sudo apt-get update</code>
+   <code>apt-cache search linux-headers-$(uname -r)</code>
+   <code>sudo apt-get install linux-headers-[VERSION]</code>
 
 ## Makefile
 
@@ -62,16 +62,15 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
 ## Usage
 
 To use the module, it has to be compiled and loaded.<br>
-Once the module is loaded, the device files <br>
-<code>/dev/encrypt</code> and <code>/dev/decrypt</code> are available.
+Once the module is loaded, the device files <code>/dev/encrypt</code> and <code>/dev/decrypt</code> are available.
 
 1. **Encryption:**<br>
-   <code>echo "Hello hello!" > /dev/encrypt
-    cat /dev/encrypt  # Outputs "Khoor khoor!"</code>
+   <code>echo "Hello hello!" > /dev/encrypt</code>
+   <code>cat /dev/encrypt  # Outputs "Khoor khoor!"</code>
     
 2. **Decryption:**<br>
-   <code>    echo "Khoor khoor!" > /dev/decrypt
-    cat /dev/decrypt  # Outputs "Hello hello!"</code>
+   <code>    echo "Khoor khoor!" > /dev/decrypt</code>
+   <code>cat /dev/decrypt  # Outputs "Hello hello!"</code>
     
 ## Module Parameters
 
