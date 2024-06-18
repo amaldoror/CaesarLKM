@@ -31,8 +31,9 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
 ## Installation
 
 1. **Clone the repository:** <br>
-   <code>git clone https://github.com/amaldoror/CaesarLKM</code>
-   <code>cd CaesarLKM</code>
+    ```bash
+    git clone https://github.com/amaldoror/CaesarLKM
+    cd CaesarLKM
    
 2. **Install libraries:**<br>
    <code>sudo apt-get update</code>
