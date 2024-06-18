@@ -67,21 +67,21 @@ The module supports the translate_shift parameter to specify the number of chara
 
 Example of loading the module with a different shift value:
 
-    ```bash
-    sudo insmod caesar_cipher.ko translate_shift=5
+   ```bash
+   sudo insmod caesar_cipher.ko translate_shift=5
 
 ## File Operations
 
 The module implements the following file operations for the device files:
 
-    - open: Opens the device file and locks the corresponding mutex.
-    - release: Closes the device file and unlocks the mutex.
-    - read: Reads from the device file and copies data to user space.
-    - write: Writes to the device file and performs Caesar cipher encryption or decryption.
+   - open: Opens the device file and locks the corresponding mutex.
+   - release: Closes the device file and unlocks the mutex.
+   - read: Reads from the device file and copies data to user space.
+   - write: Writes to the device file and performs Caesar cipher encryption or decryption.
 
 ## Security Considerations
 
-    The driver uses mutexes to ensure that only one process can access the device files at a time. It's recommended to encrypt only ASCII characters that are part of the defined alphabet (ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz). Non-included characters are passed through unchanged.
+The driver uses mutexes to ensure that only one process can access the device files at a time. It's recommended to encrypt only ASCII characters that are part of the defined alphabet (ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz). Non-included characters are passed through unchanged.
 
 ## License
 
@@ -89,7 +89,7 @@ This project is licensed under the GNU General Public License (GPL) v2. For more
 
 ## Authors
 
-    Adrian Morgenthal
-    <url>www.github.com/amaldoror</url>
+Adrian Morgenthal
+<url>www.github.com/amaldoror</url>
 
 
