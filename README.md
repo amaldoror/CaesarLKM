@@ -44,22 +44,28 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
 ## Makefile
 
 1. **Compile the Kernel Module:**<br>
-   <code>make</code>
+    ```bash
+    make
    
 2. **Clean up:**<br>
-   <code>make clean</code>
+    ```bash
+    make clean
 
 3. **Load the Kernel Module:**<br>
-   <code>make load</code>
+    ```bash
+    make load
    
 4. **Unload the Kernel Module:**<br>
-   <code>make unload</code>
+    ```bash
+    make unload
    
 5. **View Kernel Logs:**<br>
-   <code>make log</code>
+    ```bash
+    make log
    
 6. **Help:**<br>
-   <code>make help</code>
+    ```bash
+    make help
 
 ## Usage
 
@@ -83,7 +89,8 @@ By default, this is set to 3.
 
 Example of loading the module with a different shift value:
 
-   <code>sudo insmod caesar_cipher.ko translate_shift=5</code>
+    ```bash
+    sudo insmod caesar_cipher.ko translate_shift=5
    
 ## File Operations
 
