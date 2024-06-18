@@ -1,3 +1,4 @@
+
 # CaesarLKM
 
 ### Linux Kernel Module for Caesar Cipher
@@ -8,6 +9,7 @@
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Makefile](#makefile)
 - [Usage](#usage)
 - [Module Parameters](#module-parameters)
 - [File Operations](#file-operations)
@@ -23,43 +25,52 @@ The kernel module allows dynamic encryption and decryption of text accessed thro
 
 ## Prerequisites
 
-- Linux operating system (tested on Ubuntu 20.04 LTS)
+- Linux operating system (tested on Ubuntu 24.04 LTS)
 - Basic knowledge of using kernel modules and device files in Linux
 
 ## Installation
 
 1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/amaldoror/CaesarLKM
-   cd CaesarLKM
+   <code>git clone https://github.com/amaldoror/CaesarLKM
+   cd CaesarLKM</code>
    
 2. **Install libraries:**
-   ```bash
-   sudo apt-get update
+   <code>sudo apt-get update
    apt-cache search linux-headers-$(uname -r)
-   sudo apt-get install linux-headers-[VERSION]
+   sudo apt-get install linux-headers-[VERSION]   </code>
 
-3. **Compile the kernel module:**
-   ```bash
-   make
+## Makefile
+
+1. **Compile the Kernel Module:**
+   <code>make</code>
    
-4. **Load the kernel module:**
-   ```bash
-   make load
+2. **Clean up:**
+   <code>make clean</code>
+
+3. **Load the Kernel Module:**
+   <code>make load</code>
    
+4. **Unload the Kernel Module:**
+   <code>make unload</code>
+   
+5. **View Kernel Logs:**
+   <code>make log</code>
+   
+6. **Help:**
+   <code>make help</code>
+
 ## Usage
 
-Once the module is loaded, the device files <code>/dev/encrypt</code> and <code>/dev/decrypt</code> are available:
+To use the module, it has to be compiled and loaded.
+Once the module is loaded, the device files <code>/dev/encrypt</code> and <code>/dev/decrypt</code> are available.
 
 1. **Encryption:**
-    ```bash
-    echo "Hello hello!" > /dev/encrypt
-    cat /dev/encrypt  # Outputs "Khoor khoor!"
-   
+   <code>echo "Hello hello!" > /dev/encrypt
+    cat /dev/encrypt  # Outputs "Khoor khoor!"</code>
+    
 2. **Decryption:**
-    ```bash
-    echo "Khoor khoor!" > /dev/decrypt
-    cat /dev/decrypt  # Outputs "Hello hello!"
+   <code>    echo "Khoor khoor!" > /dev/decrypt
+    cat /dev/decrypt  # Outputs "Hello hello!"</code>
     
 ## Module Parameters
 
@@ -67,9 +78,8 @@ The module supports the translate_shift parameter to specify the number of chara
 
 Example of loading the module with a different shift value:
 
-   ```bash
-   sudo insmod caesar_cipher.ko translate_shift=5
-
+   <code>sudo insmod caesar_cipher.ko translate_shift=5</code>
+   
 ## File Operations
 
 The module implements the following file operations for the device files:
@@ -82,7 +92,7 @@ The module implements the following file operations for the device files:
 ## Security Considerations
 
 The driver uses mutexes to ensure that only one process can access the device files at a time. It's recommended to encrypt only ASCII characters that are part of the defined alphabet (ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz). Non-included characters are passed through unchanged.
-
+   
 ## License
 
 This project is licensed under the GNU General Public License (GPL) v2. For more details, see the LICENSE file.
