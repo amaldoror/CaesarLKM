@@ -7,7 +7,7 @@
  * /dev/encrypt (Minor Number 0): Encrypts text using a Caesar cipher.
  * /dev/decrypt (Minor Number 1): Decrypts text encrypted with the same cipher.
  * Features:
- * - Supports custom shift amount via translate_shift module parameter
+ * - Supports custom shift amount via shift module parameter
  * - Handles non-alphabet characters without modification
  * - Uses 40-character buffers for each device
  * @see www.github.com/amaldoror
@@ -34,9 +34,9 @@ MODULE_DESCRIPTION("Caesar cipher device driver");
 MODULE_VERSION("1.0");
 
 // Modulparameter für die Verschiebung
-static int translate_shift = 3;
-module_param(translate_shift, int, S_IRUGO);
-MODULE_PARM_DESC(translate_shift, "The number of characters to shift (default is 3)");
+static int shift = 3;
+module_param(shift, int, S_IRUGO);
+MODULE_PARM_DESC(shift, "The number of characters to shift (default is 3)");
 
 // Puffer und zugehörige Größen für die Geräte /dev/encrypt und /dev/decrypt
 static char encrypt_buffer[BUFFER_SIZE];
@@ -217,7 +217,7 @@ static ssize_t write(struct file *filep, const char *buffer, size_t len, loff_t 
 		if (err != 0) {
 			printk(KERN_INFO "CaesarCipher: Failed to receive %d characters from the user\n", err);
 		}
-		caesar_cipher(encrypt_buffer, encrypt_buffer, translate_shift, len);
+		caesar_cipher(encrypt_buffer, encrypt_buffer, shift, len);
 		encrypt_size = len;
 
 		// Zurücksetzen des Puffers nach der Verschlüsselung
@@ -230,7 +230,7 @@ static ssize_t write(struct file *filep, const char *buffer, size_t len, loff_t 
 		if (err != 0) {
 			printk(KERN_INFO "CaesarCipher: Failed to receive %d characters from the user\n", err);
 		}
-		caesar_cipher(decrypt_buffer, decrypt_buffer, -translate_shift, len);
+		caesar_cipher(decrypt_buffer, decrypt_buffer, -shift, len);
 		decrypt_size = len;
 
 		// Zurücksetzen des Puffers nach der Entschlüsselung
