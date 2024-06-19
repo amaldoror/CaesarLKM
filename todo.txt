@@ -1,7 +1,7 @@
 To do:
 
 + Automatische Installation von Kernelmodul und Device-Nodes
-- Verschlüsselung und nachfolgende Entschlüsselung eines beliebigen Textes
++ Verschlüsselung und nachfolgende Entschlüsselung eines beliebigen Textes
 - Prüfen, ob die Kodierung und Dekodierung korrekt (hinsichtlich des gegebenen Alphabets) funktioniert
 - Prüfen von erlaubten und unerlaubten parallelen Zugriffen auf die Devices
 - Laden des Modules mit anderen translate_shift Parametern (zur Laufzeit)
