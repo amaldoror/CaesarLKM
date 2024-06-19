@@ -2,32 +2,37 @@
 
 # Makefile für das Kernelmodul Caesar Cipher
 
+# Modulname
+MODULE_NAME = caesar
 
 # Ziel-Modulname
-obj-m += caesar.o
+obj-m += $(MODULE_NAME).o
 
-# Pfade für das Kernel-Build-System
-KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+# Pfade
+KERNEL ?= /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 
-# Compiler-Einstellung für den Kernel
+# Compiler-Version
 CC := x86_64-linux-gnu-gcc-13
+
+# Standardwert für Caesar-Verschiebung
+SHIFT ?= 3
 
 # Standard-Ziel: kompiliert das Kernelmodul
 default:
-	$(MAKE) -C $(KERNELDIR) M=$(PWD) CC=$(CC) modules
+	$(MAKE) -C $(KERNEL) M=$(PWD) CC=$(CC) modules
 
 # Ziel zum Aufräumen: löscht erzeugte Dateien
 clean:
-	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+	$(MAKE) -C $(KERNEL) M=$(PWD) clean
 
 # Ziel zum Laden des Moduls
 load:
-	sudo insmod caesar.ko
+	sudo insmod $(MODULE_NAME).ko
 
 # Ziel zum Entladen des Moduls
 unload:
-	sudo rmmod caesar
+	sudo rmmod $(MODULE_NAME)
 
 # Ziel zum Neuladen des Moduls
 reload:	unload load
@@ -38,11 +43,21 @@ log:
 
 # Ziel zum Überprüfen, ob das Modul geladen ist
 lcheck:
-	sudo lsmod | grep -q caesar
+	sudo lsmod | grep -q $(MODULE_NAME)
 
-# Ziel zum Ausgeben der Devices
-show:
+# Ziel zum Ausgeben der Geräte und Puffer
+pdev:
 	sudo ls -l /dev/encrypt /dev/decrypt
+	sudo cat /dev/encrypt
+	sudo cat /dev/decrypt
+
+# Ziel zum Setzen des shift Parameters zur Laufzeit
+shift:
+	sudo echo $(SHIFT) | sudo tee /sys/module/$(MODULE_NAME)/parameters/shift
+
+# Ziel zum Ausgeben des shift Parameters
+pshift:
+	sudo cat /sys/module/$(MODULE_NAME)/parameters/shift
 
 # Ziel zum Ausführen eines Encryption-Tests
 etest:
@@ -67,14 +82,15 @@ help:
 	@echo " make reload	- Reload kernel module"
 	@echo " make log	- Show last kernel logs"
 	@echo " make lcheck	- Check if kernel module is loaded"
-	@echo " make show	- Show device nodes"
+	@echo " make pdev	- Print devices and buffers"
+	@echo " make shift	- Set shift parameter for caesar cipher"
+	@echo " make pshift	- Print shift parameter"
 	@echo " make etest	- Do encryption test"
 	@echo " make dtest	- Do decryption test"
 	@echo " make reset	- Reset device buffers"
-	@echo " make help	- Show this help"
+	@echo " make help	- Print this help"
 
-# Standardziel für make ohne Argumente:
-# Kompilieren & Laden des Moduls, Ausgeben des Kernel Logs und Ausgeben verfügbaren Ziele
+# Alle Ziele
 .PHONY:
-	default clean load unload reload log lcheck show etest dtest reset help
+	default clean load unload reload log lcheck pdev shift pshift etest dtest reset help
 
