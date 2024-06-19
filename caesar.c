@@ -102,7 +102,7 @@ static int __init caesar_init(void){
 
 	decrypt_device = device_create(caesar_class, NULL, MKDEV(major, 1), NULL, DECRYPT_NAME);
 	if (IS_ERR(decrypt_device)) {
-		//device_destroy(decrypt_device);
+		device_destroy(caesar_class, MKDEV(major, 0));
 		class_destroy(caesar_class);
 		unregister_chrdev(major, DEVICE_NAME);
 		printk(KERN_ALERT "Failed to create decrypt device\n");
@@ -211,6 +211,8 @@ static ssize_t write(struct file *filep, const char *buffer, size_t len, loff_t 
 
 	// Verschlüsselung bei Minor-Nummer 0
 	if (minor == 0) {
+		// Puffer zurücksetzen
+		memset(encrypt_buffer, 0, BUFFER_SIZE);
 		err = copy_from_user(encrypt_buffer, buffer, len);
 		if (err != 0) {
 			printk(KERN_INFO "CaesarCipher: Failed to receive %d characters from the user\n", err);
@@ -219,10 +221,11 @@ static ssize_t write(struct file *filep, const char *buffer, size_t len, loff_t 
 		encrypt_size = len;
 
 		// Zurücksetzen des Puffers nach der Verschlüsselung
-		memset(encrypt_buffer + len, 0, BUFFER_SIZE - len);
+		//memset(encrypt_buffer + len, 0, BUFFER_SIZE - len);
 
 	// Entschlüsselung bei Minor-Nummer 1
 	} else if (minor == 1) {
+		memset(decrypt_buffer, 0, BUFFER_SIZE);
 		err = copy_from_user(decrypt_buffer, buffer, len);
 		if (err != 0) {
 			printk(KERN_INFO "CaesarCipher: Failed to receive %d characters from the user\n", err);
@@ -231,7 +234,7 @@ static ssize_t write(struct file *filep, const char *buffer, size_t len, loff_t 
 		decrypt_size = len;
 
 		// Zurücksetzen des Puffers nach der Entschlüsselung
-		memset(decrypt_buffer + len, 0, BUFFER_SIZE - len);
+		//memset(decrypt_buffer + len, 0, BUFFER_SIZE - len);
 	}
 	return len;
 }
